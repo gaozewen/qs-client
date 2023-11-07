@@ -1,5 +1,10 @@
+import QCheckbox from "./QCheckbox";
+import QInfo from "./QInfo";
 import QInput from "./QInput";
+import QParagraph from "./QParagraph";
 import QRadio from "./QRadio";
+import QTextarea from "./QTextarea";
+import QTitle from "./QTitle";
 
 type ComponentInfoType = {
   fe_id: string;
@@ -13,8 +18,24 @@ export const getComponent = (comp: ComponentInfoType) => {
 
   if (isHidden) return null;
 
+  if (type === "info") {
+    return <QInfo {...props} />;
+  }
+
+  if (type === "title") {
+    return <QTitle {...props} />;
+  }
+
+  if (type === "paragraph") {
+    return <QParagraph {...props} />;
+  }
+
   if (type === "input") {
     return <QInput fe_id={fe_id} props={props} />;
+  }
+
+  if (type === "textarea") {
+    return <QTextarea fe_id={fe_id} props={props} />;
   }
 
   if (type === "radio") {
@@ -22,23 +43,7 @@ export const getComponent = (comp: ComponentInfoType) => {
   }
 
   if (type === "checkbox") {
-    return null;
-  }
-
-  if (type === "title") {
-    return null;
-  }
-
-  if (type === "paragraph") {
-    return null;
-  }
-
-  if (type === "info") {
-    return null;
-  }
-
-  if (type === "textarea") {
-    return null;
+    return <QCheckbox fe_id={fe_id} props={props} />;
   }
 
   return null;

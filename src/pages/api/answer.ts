@@ -36,6 +36,7 @@ export default async function handler(
 
   try {
     const answerInfo = genAnswerInfo(req.body);
+    console.log("gzw===>answerInfo", answerInfo);
     // 提交到服务器
     const resData = await postAnswer(answerInfo);
 
