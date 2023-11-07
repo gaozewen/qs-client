@@ -1,15 +1,17 @@
+import PageWrapper from "@/components/PageWrapper";
 import QInput from "@/components/QInput";
 import QRadio from "@/components/QRadio";
 import styles from "@/styles/Questionnaire.module.scss";
 
 type PropsType = {
   id: string;
+  title: string;
 };
 
 export default function Questionnaire(props: PropsType) {
-  const { id } = props;
+  const { id, title } = props;
   return (
-    <>
+    <PageWrapper title={title}>
       <form method="post" action="/api/answer">
         <input name="questionnaireId" value={id} type="hidden" />
         <div className={styles["component-wrapper"]}>
@@ -45,7 +47,7 @@ export default function Questionnaire(props: PropsType) {
           <button type="submit">提交</button>
         </div>
       </form>
-    </>
+    </PageWrapper>
   );
 }
 
@@ -55,6 +57,8 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       id,
+      // TODO
+      title: "问卷标题",
     },
   };
 }

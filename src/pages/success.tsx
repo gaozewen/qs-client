@@ -1,5 +1,9 @@
+import PageWrapper from "@/components/PageWrapper";
+
 export default function Success() {
   return (
-    <p>问卷提交成功</p>
+    <PageWrapper title="提交成功">
+      <p>问卷提交成功</p>
+    </PageWrapper>
   );
 }
