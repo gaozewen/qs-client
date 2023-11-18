@@ -35,7 +35,9 @@ const QCheckbox: FC<PropsType> = ({ fe_id, props }) => {
         <Space direction={isVertical ? "vertical" : "horizontal"}>
           {list?.map((opt) => (
             <Checkbox key={opt.value} value={opt.value}>
-              {opt.text}
+              <div style={{ width: isVertical ? "84vw" : "inherit" }}>
+                {opt.text}
+              </div>
             </Checkbox>
           ))}
         </Space>

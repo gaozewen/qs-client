@@ -1,32 +1,6 @@
 import postAnswer from "@/service/answer";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type AnswerType = {
-  componentId: string;
-  value: string;
-};
-
-export type AnswerInfoType = {
-  questionnaireId: string;
-  answerList: AnswerType[];
-};
-
-const genAnswerInfo = (reqBody: any) => {
-  const answerList: AnswerType[] = [];
-  Object.keys(reqBody).forEach((key) => {
-    if (key === "questionnaireId") return;
-    answerList.push({
-      componentId: key,
-      value: reqBody[key],
-    });
-  });
-
-  return {
-    questionnaireId: reqBody.questionnaireId || "",
-    answerList,
-  };
-};
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -35,19 +9,9 @@ export default async function handler(
     res.status(200).json({ errno: -1, msg: "Method 错误" });
 
   try {
-    const answerInfo = genAnswerInfo(req.body);
-    console.log("gzw===>answerInfo", answerInfo);
-    // 提交到服务器
-    const resData = await postAnswer(answerInfo);
-
-    if (resData.errno === 0) {
-      // 提交成功了
-      res.redirect("/success");
-    } else {
-      // 提交失败了
-      res.redirect("/fail");
-    }
+    const resData = await postAnswer(req.body);
+    res.status(200).json(resData);
   } catch (error) {
-    res.redirect("/fail");
+    res.status(200).json({ errno: -2, msg: "api 服务器异常" });
   }
 }

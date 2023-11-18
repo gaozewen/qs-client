@@ -24,7 +24,9 @@ const QRadio: FC<PropsType> = ({ fe_id, props }) => {
         <Space direction={isVertical ? "vertical" : "horizontal"}>
           {options?.map((opt) => (
             <Radio key={opt.value} value={opt.value}>
-              {opt.text}
+              <div style={{ width: isVertical ? "84vw" : "inherit" }}>
+                {opt.text}
+              </div>
             </Radio>
           ))}
         </Space>

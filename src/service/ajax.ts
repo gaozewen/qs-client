@@ -9,9 +9,11 @@ export const get = async (url: string) => {
 
 export const post = async (url: string, body: any) => {
   const res = await fetch(`${HOST}${url}`, {
-    method: "post",
-    body: JSON.stringify(body),
+    method: "POST",
+    body,
+    // 解决 egg 服务端无法获取 body 的问题
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
   });
-  const data = res.json();
+  const data = await res.json();
   return data;
 };
