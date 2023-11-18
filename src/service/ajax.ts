@@ -1,4 +1,5 @@
-const HOST = "http://localhost:3001"; // Mock 的 host
+// const HOST = "http://localhost:3001"; // Mock 的 host
+const HOST = "http://localhost:7001"; // 本地 api 的 host
 
 export const get = async (url: string) => {
   const res = await fetch(`${HOST}${url}`);

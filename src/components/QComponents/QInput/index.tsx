@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styles from './index.module.scss';
+import { Form, Input } from "antd";
 
 type PropsType = {
   fe_id: string;
@@ -12,12 +12,13 @@ type PropsType = {
 const QInput: FC<PropsType> = ({ fe_id, props }) => {
   const { title, placeholder } = props;
   return (
-    <>
-      <p>{title}</p>
-      <div className={styles['input-wrapper']}>
-        <input name={fe_id} placeholder={placeholder} />
-      </div>
-    </>
+    <Form.Item
+      name={fe_id}
+      label={title}
+      rules={[{ required: true, message: `请输入${title}` }]}
+    >
+      <Input placeholder={placeholder} />
+    </Form.Item>
   );
 };
 

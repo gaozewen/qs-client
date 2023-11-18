@@ -1,14 +1,13 @@
 import PageWrapper from "@/components/PageWrapper";
+import { Button, Form, Input, message, Space } from "antd";
 import { getComponent } from "@/components/QComponents";
-import QInput from "@/components/QComponents/QInput";
-import QRadio from "@/components/QComponents/QRadio";
 import getQuestionnaireById from "@/service/questionnaire";
 import styles from "@/styles/Questionnaire.module.scss";
 
 type PropsType = {
   errno: number;
   data?: {
-    id: string;
+    _id: string;
     title: string;
     desc?: string;
     js?: string;
@@ -22,6 +21,7 @@ type PropsType = {
 
 export default function Questionnaire(props: PropsType) {
   const { errno, data, msg = "" } = props;
+  const [form] = Form.useForm();
 
   if (errno !== 0) {
     return (
@@ -33,7 +33,7 @@ export default function Questionnaire(props: PropsType) {
   }
 
   const {
-    id = "",
+    _id = "",
     title = "",
     desc = "",
     isDeleted,
@@ -59,21 +59,26 @@ export default function Questionnaire(props: PropsType) {
     );
   }
 
+  const onFinish = (data: any) => {
+    data.id = _id;
+    console.log("gzw===>data", data);
+
+    message.success("Submit success!");
+  };
+
   return (
     <PageWrapper title={title || "问卷调查"}>
-      <form method="post" action="/api/answer">
-        <input name="questionnaireId" value={id} type="hidden" />
-
+      <Form form={form} layout="vertical" onFinish={onFinish}>
         {componentList.map((c) => (
-          <div key={c.fe_id} className={styles["component-wrapper"]}>
-            {getComponent(c)}
-          </div>
+          <div key={c.fe_id}>{getComponent(c)}</div>
         ))}
 
-        <div className={styles["submit-button-container"]}>
-          <button type="submit">提交</button>
-        </div>
-      </form>
+        <Form.Item>
+          <Button block type="primary" htmlType="submit" size="large" shape="round">
+            提交
+          </Button>
+        </Form.Item>
+      </Form>
     </PageWrapper>
   );
 }

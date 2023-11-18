@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styles from "./index.module.scss";
+import { Form, Radio, Space } from "antd";
 
 type PropsType = {
   fe_id: string;
@@ -14,32 +14,22 @@ type PropsType = {
 const QRadio: FC<PropsType> = ({ fe_id, props }) => {
   const { title, options = [], value, isVertical } = props;
   return (
-    <>
-      <p>{title}</p>
-      <ul className={styles.list}>
-        {options.map((opt) => {
-          const { text, value: val } = opt;
-          return (
-            <li
-              key={val}
-              className={
-                styles[isVertical ? "vertical-item" : "horizontal-item"]
-              }
-            >
-              <label>
-                <input
-                  type="radio"
-                  name={fe_id}
-                  value={val}
-                  defaultChecked={val === value}
-                />
-                {text}
-              </label>
-            </li>
-          );
-        })}
-      </ul>
-    </>
+    <Form.Item
+      name={fe_id}
+      label={title}
+      rules={[{ required: true, message: `请选择${title}` }]}
+      initialValue={value}
+    >
+      <Radio.Group>
+        <Space direction={isVertical ? "vertical" : "horizontal"}>
+          {options?.map((opt) => (
+            <Radio key={opt.value} value={opt.value}>
+              {opt.text}
+            </Radio>
+          ))}
+        </Space>
+      </Radio.Group>
+    </Form.Item>
   );
 };
 

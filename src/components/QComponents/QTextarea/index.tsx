@@ -1,23 +1,27 @@
-import React, { FC } from 'react'
-import styles from './index.module.scss'
+import React, { FC } from "react";
+import { Form, Input } from "antd";
+const { TextArea } = Input;
 
 type PropsType = {
-  fe_id: string,
+  fe_id: string;
   props: {
-    title: string
-    placeholder?: string
-  }
-}
+    title: string;
+    placeholder?: string;
+  };
+};
 
 const QTextarea: FC<PropsType> = ({ fe_id, props }) => {
-  const { title, placeholder = '' } = props
+  const { title, placeholder = "" } = props;
 
-  return <>
-    <p>{title}</p>
-    <div className={styles['textarea-wrapper']}>
-      <textarea name={fe_id} placeholder={placeholder} rows={5}/>
-    </div>
-  </>
-}
+  return (
+    <Form.Item
+      name={fe_id}
+      label={title}
+      rules={[{ required: true, message: `请输入${title}` }]}
+    >
+      <TextArea placeholder={placeholder} />
+    </Form.Item>
+  );
+};
 
-export default QTextarea
+export default QTextarea;
