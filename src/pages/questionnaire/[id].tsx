@@ -1,4 +1,5 @@
-import { Button, Form } from "antd";
+import { useEffect, useState } from "react";
+import { Button, Form, Spin } from "antd";
 import { useRouter } from "next/router";
 import PageWrapper from "@/components/PageWrapper";
 import { getComponent } from "@/components/QComponents";
@@ -33,6 +34,14 @@ export default function Questionnaire(props: PropsType) {
   const { errno, data, msg = "" } = props;
   const [form] = Form.useForm();
   const router = useRouter();
+  const [spinning, setSpinning] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      // 为了等待 antd 表单样式加载
+      setSpinning(false);
+    }, 800);
+  }, []);
 
   if (errno !== 0) {
     return (
@@ -71,6 +80,13 @@ export default function Questionnaire(props: PropsType) {
       </PageWrapper>
     );
   }
+
+  if (spinning)
+    return (
+      <div style={{ textAlign: "center", marginTop: "44vh" }}>
+        <Spin spinning={spinning} size="large" />
+      </div>
+    );
 
   const genAnswerList = (
     formData: { [key: string]: any },
@@ -140,17 +156,19 @@ export default function Questionnaire(props: PropsType) {
           <div key={c.fe_id}>{getComponent(c)}</div>
         ))}
 
-        <Form.Item>
-          <Button
-            block
-            type="primary"
-            htmlType="submit"
-            size="large"
-            shape="round"
-          >
-            提交
-          </Button>
-        </Form.Item>
+        <div style={{ paddingTop: 14, paddingBottom: 10 }}>
+          <Form.Item>
+            <Button
+              block
+              type="primary"
+              htmlType="submit"
+              size="large"
+              shape="round"
+            >
+              提交
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </PageWrapper>
   );

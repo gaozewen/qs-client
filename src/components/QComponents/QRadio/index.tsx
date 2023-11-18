@@ -17,7 +17,7 @@ const QRadio: FC<PropsType> = ({ fe_id, props }) => {
     <Form.Item
       name={fe_id}
       label={title}
-      rules={[{ required: true, message: `请选择${title}` }]}
+      rules={[{ required: true, message: '请选择' }]}
       initialValue={value}
     >
       <Radio.Group>

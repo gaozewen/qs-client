@@ -17,7 +17,7 @@ const QTextarea: FC<PropsType> = ({ fe_id, props }) => {
     <Form.Item
       name={fe_id}
       label={title}
-      rules={[{ required: true, message: `请输入${title}` }]}
+      rules={[{ required: true, message: '请输入' }]}
     >
       <TextArea placeholder={placeholder} />
     </Form.Item>

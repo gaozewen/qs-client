@@ -1,12 +1,9 @@
-import type { AppProps } from 'next/app'
-import React from 'react';
-import { ConfigProvider } from 'antd';
-import '@/styles/globals.css'
+import type { AppProps } from "next/app";
+import React from "react";
+import "@/styles/globals.css";
 
 const App = ({ Component, pageProps }: AppProps) => (
-  <ConfigProvider>
-    <Component {...pageProps} />
-  </ConfigProvider>
+  <Component {...pageProps} />
 );
 
 export default App;

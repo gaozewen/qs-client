@@ -9,7 +9,7 @@ const QInfo: FC<PropsType> = ({ title, desc }) => {
   return (
     <div style={{ textAlign: "center" }}>
       <h1>{title}</h1>
-      <p>{desc}</p>
+      {!!desc && <p>{desc}</p>}
     </div>
   );
 };
