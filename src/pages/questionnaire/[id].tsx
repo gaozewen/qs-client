@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Spin } from "antd";
+import { Button, Form, Spin, Result } from "antd";
 import { useRouter } from "next/router";
 import PageWrapper from "@/components/PageWrapper";
 import { getComponent } from "@/components/QComponents";
@@ -46,8 +46,9 @@ export default function Questionnaire(props: PropsType) {
   if (errno !== 0) {
     return (
       <PageWrapper title="错误">
-        <h1>错误</h1>
-        <p>{msg}</p>
+        <div style={{ marginTop: "24vh" }}>
+          <Result status="error" title="服务器开小差了" subTitle={msg} />
+        </div>
       </PageWrapper>
     );
   }
@@ -66,8 +67,9 @@ export default function Questionnaire(props: PropsType) {
   if (isDeleted) {
     return (
       <PageWrapper title={title} desc={desc}>
-        <h1>{title}</h1>
-        <p>该问卷已被删除</p>
+        <div style={{ marginTop: "24vh" }}>
+          <Result status="error" title={title} subTitle="该问卷已被删除" />
+        </div>
       </PageWrapper>
     );
   }
@@ -75,8 +77,9 @@ export default function Questionnaire(props: PropsType) {
   if (!isPublished) {
     return (
       <PageWrapper title={title} desc={desc}>
-        <h1>{title}</h1>
-        <p>该问卷尚未发布</p>
+        <div style={{ marginTop: "24vh" }}>
+          <Result status="error" title={title} subTitle="该问卷尚未发布" />
+        </div>
       </PageWrapper>
     );
   }
