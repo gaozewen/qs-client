@@ -35,6 +35,7 @@ export default function Questionnaire(props: PropsType) {
   const [form] = Form.useForm();
   const router = useRouter();
   const [spinning, setSpinning] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -122,6 +123,7 @@ export default function Questionnaire(props: PropsType) {
   };
 
   const onFinish = async (formData: FormDataType) => {
+    setLoading(true)
     const postBody = {
       questionnaireId: _id,
       answerList: genAnswerList(formData, visibleCompList),
@@ -135,6 +137,8 @@ export default function Questionnaire(props: PropsType) {
 
       const data = await res.json();
 
+      setLoading(false)
+
       if (data.errno === 0) {
         // 提交成功了
         router.push("/success");
@@ -142,7 +146,9 @@ export default function Questionnaire(props: PropsType) {
         // 提交失败了
         router.push("/fail");
       }
+
     } catch (error) {
+      setLoading(false)
       router.push("/fail");
     }
   };
@@ -167,6 +173,7 @@ export default function Questionnaire(props: PropsType) {
               htmlType="submit"
               size="large"
               shape="round"
+              loading={loading}
             >
               提交
             </Button>
