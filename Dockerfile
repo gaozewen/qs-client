@@ -16,8 +16,6 @@ COPY --from=builder ./node_modules ./node_modules
 COPY --from=builder ./public ./public
 COPY --from=builder ./package.json ./package.json
 
-EXPOSE 3000
-
 ENV NODE_ENV=production
 
 CMD [ "npm", "start" ]
